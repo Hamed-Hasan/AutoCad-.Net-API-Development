@@ -16,6 +16,18 @@ builder.Services.AddDbContext<AutoCadContext>(options =>
 // Add SignalR
 builder.Services.AddSignalR();
 
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("http://localhost:3000") // Add the URL of your frontend application
+               .AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -27,6 +39,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
+
+// Use CORS middleware
+app.UseCors();
+
 app.MapControllers();
 
 // Map SignalR hubs
