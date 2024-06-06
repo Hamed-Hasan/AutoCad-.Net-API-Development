@@ -1,0 +1,6 @@
+@autoCadApiDevelopment_HostAddress = http://localhost:5044
+
+GET {{autoCadApiDevelopment_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
