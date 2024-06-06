@@ -1,15 +1,14 @@
-﻿using autoCadApiDevelopment.Models;
-using Microsoft.EntityFrameworkCore;
-
-namespace autoCadApiDevelopment.Data
+﻿namespace AutoCADApi.DbContext
 {
+    using AutoCADApi.Models;
+    using Microsoft.EntityFrameworkCore;
+
     public class AutoCadContext : DbContext
     {
-        public AutoCadContext(DbContextOptions<AutoCadContext> options)
-            : base(options)
-        {
-        }
+        public AutoCadContext(DbContextOptions<AutoCadContext> options) : base(options) { }
 
-        public DbSet<Drawing> Drawings { get; set; }
+        public DbSet<AutoCADFile> AutoCADFiles { get; set; }
+        public DbSet<Pin> Pins { get; set; }
+        public DbSet<ModalContent> ModalContents { get; set; }
     }
 }

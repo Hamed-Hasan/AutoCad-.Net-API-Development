@@ -1,15 +1,15 @@
 [
   {
-    "ContainingType": "autoCadApiDevelopment.Controllers.DrawingsController",
-    "Method": "GetDrawings",
-    "RelativePath": "api/Drawings",
+    "ContainingType": "AutoCADApi.Controllers.AutoCADFilesController",
+    "Method": "GetAutoCADFiles",
+    "RelativePath": "api/AutoCADFiles",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[autoCadApiDevelopment.Models.Drawing, autoCadApiDevelopment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[AutoCADApi.Models.AutoCADFile, autoCadApiDevelopment, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -20,22 +20,47 @@
     ]
   },
   {
-    "ContainingType": "autoCadApiDevelopment.Controllers.DrawingsController",
-    "Method": "PostDrawing",
-    "RelativePath": "api/Drawings",
+    "ContainingType": "AutoCADApi.Controllers.AutoCADFilesController",
+    "Method": "PostAutoCADFile",
+    "RelativePath": "api/AutoCADFiles",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "drawing",
-        "Type": "autoCadApiDevelopment.Models.Drawing",
-        "IsRequired": true
+        "Name": "ContentType",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "ContentDisposition",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Headers",
+        "Type": "Microsoft.AspNetCore.Http.IHeaderDictionary",
+        "IsRequired": false
+      },
+      {
+        "Name": "Length",
+        "Type": "System.Int64",
+        "IsRequired": false
+      },
+      {
+        "Name": "Name",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FileName",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "autoCadApiDevelopment.Models.Drawing",
+        "Type": "AutoCADApi.Models.AutoCADFile",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -46,9 +71,9 @@
     ]
   },
   {
-    "ContainingType": "autoCadApiDevelopment.Controllers.DrawingsController",
-    "Method": "GetDrawing",
-    "RelativePath": "api/Drawings/{id}",
+    "ContainingType": "AutoCADApi.Controllers.AutoCADFilesController",
+    "Method": "GetAutoCADFile",
+    "RelativePath": "api/AutoCADFiles/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -61,7 +86,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "autoCadApiDevelopment.Models.Drawing",
+        "Type": "AutoCADApi.Models.AutoCADFile",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -72,9 +97,61 @@
     ]
   },
   {
-    "ContainingType": "autoCadApiDevelopment.Controllers.DrawingsController",
-    "Method": "PutDrawing",
-    "RelativePath": "api/Drawings/{id}",
+    "ContainingType": "AutoCADApi.Controllers.PinsController",
+    "Method": "PostPin",
+    "RelativePath": "api/Pins",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "pin",
+        "Type": "AutoCADApi.Models.Pin",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "AutoCADApi.Models.Pin",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AutoCADApi.Controllers.PinsController",
+    "Method": "GetPin",
+    "RelativePath": "api/Pins/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "AutoCADApi.Models.Pin",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "AutoCADApi.Controllers.PinsController",
+    "Method": "PutPin",
+    "RelativePath": "api/Pins/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -85,17 +162,17 @@
         "IsRequired": true
       },
       {
-        "Name": "drawing",
-        "Type": "autoCadApiDevelopment.Models.Drawing",
+        "Name": "pin",
+        "Type": "AutoCADApi.Models.Pin",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "autoCadApiDevelopment.Controllers.DrawingsController",
-    "Method": "DeleteDrawing",
-    "RelativePath": "api/Drawings/{id}",
+    "ContainingType": "AutoCADApi.Controllers.PinsController",
+    "Method": "DeletePin",
+    "RelativePath": "api/Pins/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,

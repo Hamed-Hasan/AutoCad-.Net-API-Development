@@ -1,4 +1,5 @@
-using autoCadApiDevelopment.Data;
+using AutoCADApi.DbContext;
+using AutoCADApi.Hubs;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AutoCadContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Add SignalR
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,9 +26,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
+
+// Map SignalR hubs
+app.MapHub<NotificationHub>("/notificationHub");
 
 app.Run();
