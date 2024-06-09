@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace autoCadApiDevelopment.Migrations
 {
     [DbContext(typeof(AutoCadContext))]
-    [Migration("20240606110356_up-to-date")]
-    partial class uptodate
+    [Migration("20240609105603_AddUrnToAutoCADFile")]
+    partial class AddUrnToAutoCADFile
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

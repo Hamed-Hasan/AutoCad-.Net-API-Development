@@ -1,4 +1,4 @@
-using AutoCADApi.DbContext;
+using AutoCADApi.Models;
 using AutoCADApi.Hubs;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +21,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
-        builder.WithOrigins("http://localhost:3000") // Add the URL of your frontend application
+        builder.WithOrigins("http://localhost:3000") 
                .AllowAnyHeader()
                .AllowAnyMethod()
                .AllowCredentials();

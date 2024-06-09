@@ -1,5 +1,4 @@
-﻿using AutoCADApi.DbContext;
-using AutoCADApi.Models;
+﻿using AutoCADApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

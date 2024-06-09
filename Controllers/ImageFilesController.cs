@@ -1,31 +1,35 @@
-﻿using AutoCADApi.DbContext;
-using AutoCADApi.Models;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using AutoCADApi.Models;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AutoCADApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AutoCADFilesController : ControllerBase
+    public class ImageFilesController : ControllerBase
     {
         private readonly AutoCadContext _context;
 
-        public AutoCADFilesController(AutoCadContext context)
+        public ImageFilesController(AutoCadContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AutoCADFile>>> GetAutoCADFiles()
+        public async Task<ActionResult<IEnumerable<ImageFile>>> GetImageFiles()
         {
-            return await _context.AutoCADFiles.Include(f => f.Pins).ToListAsync();
+            return await _context.ImageFiles.Include(f => f.Pins).ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<AutoCADFile>> GetAutoCADFile(int id)
+        public async Task<ActionResult<ImageFile>> GetImageFile(int id)
         {
-            var file = await _context.AutoCADFiles.Include(f => f.Pins)
+            var file = await _context.ImageFiles.Include(f => f.Pins)
                                                  .ThenInclude(p => p.ModalContent)
                                                  .FirstOrDefaultAsync(f => f.Id == id);
 
@@ -38,7 +42,7 @@ namespace AutoCADApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<AutoCADFile>> PostAutoCADFile([FromForm] IFormFile file)
+        public async Task<ActionResult<ImageFile>> PostImageFile([FromForm] IFormFile file)
         {
             if (file == null || file.Length == 0)
             {
@@ -47,16 +51,16 @@ namespace AutoCADApi.Controllers
 
             using var memoryStream = new MemoryStream();
             await file.CopyToAsync(memoryStream);
-            var autoCADFile = new AutoCADFile
+            var imageFile = new ImageFile
             {
                 FileName = file.FileName,
-                FileData = memoryStream.ToArray()
+                FileData = memoryStream.ToArray(),
             };
 
-            _context.AutoCADFiles.Add(autoCADFile);
+            _context.ImageFiles.Add(imageFile);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetAutoCADFile), new { id = autoCADFile.Id }, autoCADFile);
+            return CreatedAtAction(nameof(GetImageFile), new { id = imageFile.Id }, imageFile);
         }
     }
 }

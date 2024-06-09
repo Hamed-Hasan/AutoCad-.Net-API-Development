@@ -10,6 +10,17 @@ namespace AutoCADApi.Models
         public int Id { get; set; }
         public string FileName { get; set; } = string.Empty;
         public byte[] FileData { get; set; } = Array.Empty<byte>();
+        public string Urn { get; set; } = string.Empty;
+        public ICollection<Pin> Pins { get; set; } = new List<Pin>();
+    }
+
+    public class ImageFile
+    {
+        [Key]
+        public int Id { get; set; }
+        public string FileName { get; set; } = string.Empty;
+        public byte[] FileData { get; set; } = Array.Empty<byte>();
+        public string Urn { get; set; } = string.Empty;
         public ICollection<Pin> Pins { get; set; } = new List<Pin>();
     }
 
@@ -19,6 +30,8 @@ namespace AutoCADApi.Models
         public int Id { get; set; }
         public int AutoCADFileId { get; set; }
         public AutoCADFile AutoCADFile { get; set; } = null!;
+        public int ImageFileId { get; set; }
+        public ImageFile ImageFile { get; set; } = null!;
         public double X { get; set; }
         public double Y { get; set; }
         public string Status { get; set; } = string.Empty;

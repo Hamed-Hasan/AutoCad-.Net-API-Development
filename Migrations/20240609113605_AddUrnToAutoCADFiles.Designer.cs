@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace autoCadApiDevelopment.Migrations
 {
     [DbContext(typeof(AutoCadContext))]
-    [Migration("20240606110356_up-to-date")]
-    partial class uptodate
+    [Migration("20240609113605_AddUrnToAutoCADFiles")]
+    partial class AddUrnToAutoCADFiles
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,10 @@ namespace autoCadApiDevelopment.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Urn")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

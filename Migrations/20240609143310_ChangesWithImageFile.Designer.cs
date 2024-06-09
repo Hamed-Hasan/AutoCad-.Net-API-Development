@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace autoCadApiDevelopment.Migrations
 {
     [DbContext(typeof(AutoCadContext))]
-    [Migration("20240606110356_up-to-date")]
-    partial class uptodate
+    [Migration("20240609143310_ChangesWithImageFile")]
+    partial class ChangesWithImageFile
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace autoCadApiDevelopment.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AutoCADApi.Models.AutoCADFile", b =>
+            modelBuilder.Entity("AutoCADApi.Models.ImageFile", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace autoCadApiDevelopment.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("AutoCADFiles");
+                    b.ToTable("ImageFiles");
                 });
 
             modelBuilder.Entity("AutoCADApi.Models.ModalContent", b =>
@@ -90,12 +90,12 @@ namespace autoCadApiDevelopment.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<int>("AutoCADFileId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ImageFileId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .IsRequired()
@@ -113,7 +113,7 @@ namespace autoCadApiDevelopment.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AutoCADFileId");
+                    b.HasIndex("ImageFileId");
 
                     b.ToTable("Pins");
                 });
@@ -129,16 +129,16 @@ namespace autoCadApiDevelopment.Migrations
 
             modelBuilder.Entity("AutoCADApi.Models.Pin", b =>
                 {
-                    b.HasOne("AutoCADApi.Models.AutoCADFile", "AutoCADFile")
+                    b.HasOne("AutoCADApi.Models.ImageFile", "ImageFile")
                         .WithMany("Pins")
-                        .HasForeignKey("AutoCADFileId")
+                        .HasForeignKey("ImageFileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AutoCADFile");
+                    b.Navigation("ImageFile");
                 });
 
-            modelBuilder.Entity("AutoCADApi.Models.AutoCADFile", b =>
+            modelBuilder.Entity("AutoCADApi.Models.ImageFile", b =>
                 {
                     b.Navigation("Pins");
                 });

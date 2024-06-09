@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace autoCadApiDevelopment.Migrations
 {
     [DbContext(typeof(AutoCadContext))]
-    [Migration("20240606110356_up-to-date")]
-    partial class uptodate
+    [Migration("20240609143430_ChangesWithImageFile-addedImagefile")]
+    partial class ChangesWithImageFileaddedImagefile
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,9 +40,38 @@ namespace autoCadApiDevelopment.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Urn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.ToTable("AutoCADFiles");
+                    b.ToTable("AutoCADFile");
+                });
+
+            modelBuilder.Entity("AutoCADApi.Models.ImageFile", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<byte[]>("FileData")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Urn")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImageFiles");
                 });
 
             modelBuilder.Entity("AutoCADApi.Models.ModalContent", b =>
@@ -97,6 +126,9 @@ namespace autoCadApiDevelopment.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ImageFileId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -114,6 +146,8 @@ namespace autoCadApiDevelopment.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AutoCADFileId");
+
+                    b.HasIndex("ImageFileId");
 
                     b.ToTable("Pins");
                 });
@@ -135,10 +169,23 @@ namespace autoCadApiDevelopment.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AutoCADApi.Models.ImageFile", "ImageFile")
+                        .WithMany("Pins")
+                        .HasForeignKey("ImageFileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("AutoCADFile");
+
+                    b.Navigation("ImageFile");
                 });
 
             modelBuilder.Entity("AutoCADApi.Models.AutoCADFile", b =>
+                {
+                    b.Navigation("Pins");
+                });
+
+            modelBuilder.Entity("AutoCADApi.Models.ImageFile", b =>
                 {
                     b.Navigation("Pins");
                 });
